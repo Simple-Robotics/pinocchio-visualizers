@@ -2,6 +2,7 @@
 
 #include "base-visualizer.hpp"
 #include <pinocchio/algorithm/frames.hpp>
+#include <pinocchio/algorithm/geometry.hpp>
 
 #include <chrono>
 #include <thread>
@@ -33,7 +34,7 @@ void BaseVisualizer<Scalar>::display(const std::optional<ConstVectorRef>& q) {
   if (q.has_value()) {
     forwardKinematics(*m_model, data, *q);
   }
-  updateFramePlacements(*m_model, data, *m_visualModel, visualData);
+  updateGeometryPlacements(*m_model, data, *m_visualModel, visualData);
   displayImpl();
 }
 
