@@ -1,6 +1,6 @@
 #pragma once
 
-#include "pinocchio-visualizers/base-visualizer.hpp"
+#include "base-visualizer.hpp"
 #include <pinocchio/algorithm/frames.hpp>
 
 #include <chrono>
@@ -9,15 +9,15 @@
 namespace pinocchio_visualizers {
 
 template <typename Scalar>
-BaseVisualizer<Scalar>::BaseVisualizer(Model const& model,
-                                       GeometryModel const& visual_model,
-                                       GeometryModel const* collision_model)
-    : data(model),
-      visualData(visual_model),
-      collisionData(),
-      m_model(&model),
+BaseVisualizer<Scalar>::BaseVisualizer(const Model& model,
+                                       const GeometryModel& visual_model,
+                                       const GeometryModel* collision_model)
+    : m_model(&model),
       m_visualModel(&visual_model),
-      m_collisionModel(collision_model) {
+      m_collisionModel(collision_model),
+      data(model),
+      visualData(visual_model),
+      collisionData() {
   if (m_collisionModel) collisionData = GeometryData(*m_collisionModel);
 }
 
@@ -33,7 +33,7 @@ void BaseVisualizer<Scalar>::display(const std::optional<ConstVectorRef>& q) {
   if (q.has_value()) {
     forwardKinematics(*m_model, data, *q);
   }
-  updateFramePlacements(*m_model, data);
+  updateFramePlacements(*m_model, data, *m_visualModel, visualData);
   displayImpl();
 }
 

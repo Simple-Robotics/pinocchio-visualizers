@@ -86,18 +86,19 @@ class BaseVisualizer {
   const GeometryModel& visualModel() const { return *m_visualModel; }
   const GeometryModel* collisionModel() const { return m_collisionModel; }
 
-  Data data;
-  GeometryData visualData;
-  GeometryData collisionData;
-
  protected:
   Model const* m_model;
   GeometryModel const* m_visualModel;
   GeometryModel const* m_collisionModel;
 
   virtual void displayImpl() = 0;
+
+ public:
+  Data data;
+  GeometryData visualData;
+  GeometryData collisionData;
 };
 
 }  // namespace pinocchio_visualizers
 
-#include "pinocchio-visualizers/base-visualizer.hxx"
+#include "base-visualizer.hxx"
