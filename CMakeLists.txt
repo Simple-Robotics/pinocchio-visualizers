@@ -19,8 +19,10 @@ set(CMAKE_VERBOSE_MAKEFILE False)
 
 add_project_dependency(pinocchio 2.7.0 REQUIRED)
 
-set(HEADERS include/pinocchio-visualizers/base-visualizer.hpp
-            include/pinocchio-visualizers/base-visualizer.hxx)
+set(HEADERS
+    include/pinocchio-visualizers/namespace.hpp
+    include/pinocchio-visualizers/base-visualizer.hpp
+    include/pinocchio-visualizers/base-visualizer.hxx)
 
 add_library(${PROJECT_NAME} INTERFACE ${HEADERS})
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX PUBLIC_HEADER

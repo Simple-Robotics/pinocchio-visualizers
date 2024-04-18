@@ -1,5 +1,7 @@
 #pragma once
 
+#include "namespace.hpp"
+
 #include <pinocchio/multibody/data.hpp>
 #include <pinocchio/multibody/geometry.hpp>
 #include <pinocchio/multibody/model.hpp>
