@@ -35,6 +35,7 @@ struct VisualizerVisitor : bp::def_visitor<VisualizerVisitor<Visualizer>> {
              ("self"_a, "position"))
         .def("setCameraPose", setCameraPose_proxy, ("self"_a, "pose"))
         .def("setCameraZoom", setCameraPose_proxy2, ("self"_a, "value"))
+        .def("clean", &Visualizer::clean, ("self"_a))
         .add_property("model",
                       bp::make_function(&Visualizer::model,
                                         bp::return_internal_reference<>()))
