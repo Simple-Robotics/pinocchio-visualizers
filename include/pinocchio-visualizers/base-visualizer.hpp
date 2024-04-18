@@ -48,7 +48,7 @@ class BaseVisualizer {
   virtual void loadViewerModel() = 0;
 
   /// @brief Re-build data objects. Required if the models were modified.
-  void rebuildData();
+  virtual void rebuildData();
 
   /// @brief Display configuration @p q (if an actual value is given) or update
   /// the Pinocchio frames.
