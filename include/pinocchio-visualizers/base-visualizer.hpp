@@ -7,7 +7,12 @@
 #include <optional>
 
 namespace pinocchio_visualizers {
-using namespace pinocchio;
+namespace pin = pinocchio;
+
+namespace {
+using pin::GeometryData;
+using pin::GeometryModel;
+}  // namespace
 
 /// @brief A base class for defining visualizers for Pinocchio in C++. This
 /// provides basic building blocks (a base constructor, data members, getters
@@ -21,18 +26,18 @@ template <typename _Scalar>
 class BaseVisualizer {
  public:
   typedef _Scalar Scalar;
-  typedef ModelTpl<Scalar> Model;
-  typedef DataTpl<Scalar> Data;
+  typedef pin::ModelTpl<Scalar> Model;
+  typedef pin::DataTpl<Scalar> Data;
   enum { Options = Eigen::ColMajor };
 
   typedef Eigen::Matrix<Scalar, Eigen::Dynamic, 1, Options> VectorXs;
   typedef Eigen::Matrix<Scalar, 3, 1, Options> Vector3s;
   typedef Eigen::Matrix<Scalar, 4, 4, Options> Matrix4s;
-  typedef SE3Tpl<Scalar, Options> SE3;
+  typedef pin::SE3Tpl<Scalar, Options> SE3;
   typedef Eigen::Ref<const VectorXs> ConstVectorRef;
 
-  BaseVisualizer(const Model& model, const GeometryModel& viz_model,
-                 const GeometryModel* collision_model = nullptr);
+  BaseVisualizer(const Model& model, const pin::GeometryModel& viz_model,
+                 const pin::GeometryModel* collision_model = nullptr);
 
   /// @brief Initialize the viewer.
   virtual void initViewer() {}
