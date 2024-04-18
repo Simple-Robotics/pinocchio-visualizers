@@ -11,13 +11,13 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_EXPORT_COMPILE_COMMANDS True)
 
-include(cmake-module/base.cmake)
+include(cmake/base.cmake)
 
 project(${PROJECT_NAME} ${PROJECT_ARGS})
 
 set(CMAKE_VERBOSE_MAKEFILE False)
 
-find_package(pinocchio 2.7.0 REQUIRED)
+add_project_dependency(pinocchio 2.7.0 REQUIRED)
 
 set(HEADERS include/pinocchio-visualizers/base-visualizer.hpp
             include/pinocchio-visualizers/base-visualizer.hxx)
