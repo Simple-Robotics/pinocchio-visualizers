@@ -1,8 +1,0 @@
-enable_markup: false
-first_comment_is_literal: true
-line_width: 90
-max_pargs_hwrap: 3
-max_subgroups_hwrap: 3
-disabled_codes:
-  - C0103
-  - C0307
