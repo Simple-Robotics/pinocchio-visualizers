@@ -40,7 +40,7 @@ target_link_libraries(mytarget [PUBLIC|PRIVATE|INTERFACE] pinocchio-visualizers:
 In your own repository, you can add it as a submodule:
 
 ```bash
-git submodule add https://github.com/ManifoldFR/pinocchio-visualizers
+git submodule add https://github.com/Simple-Robotics/pinocchio-visualizers
 ```
 
 and in CMake, add it as a subdirectory before using the target:
