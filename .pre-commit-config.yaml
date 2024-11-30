@@ -1,0 +1,20 @@
+ci:
+    autoupdate_branch: main
+repos:
+-   repo: https://github.com/pre-commit/mirrors-clang-format
+    rev: v19.1.4
+    hooks:
+    -   id: clang-format
+        exclude: ^third-party/
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+    -   id: detect-private-key
+    -   id: end-of-file-fixer
+    -   id: mixed-line-ending
+    -   id: check-merge-conflict
+    -   id: trailing-whitespace
+-   repo: https://github.com/BlankSpruce/gersemi
+    rev: 0.17.1
+    hooks:
+        - id: gersemi
