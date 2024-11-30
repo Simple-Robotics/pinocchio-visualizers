@@ -23,12 +23,17 @@ struct VisualizerVisitor : bp::def_visitor<VisualizerVisitor<Visualizer>> {
     vis.setCameraPose(pose);
   }
 
+  static void play_proxy2(Visualizer&vis, const ConstMatrixRef& qs, Scalar dt) {
+    vis.play(qs, dt);
+  }
+
   template <class... PyArgs>
   void visit(bp::class_<PyArgs...> &cl) const {
     cl.def("initViewer", &Visualizer::initViewer)
         .def("loadViewerModel", &Visualizer::loadViewerModel)
         .def("rebuildData", &Visualizer::rebuildData)
         .def("display", &Visualizer::display, ("self"_a, "q"_a = std::nullopt))
+        .def("play", play_proxy2, ("self"_a, "qs"_a, "dt"_a))
         .def("setCameraTarget", &Visualizer::setCameraTarget,
              ("self"_a, "target"))
         .def("setCameraPosition", &Visualizer::setCameraPosition,

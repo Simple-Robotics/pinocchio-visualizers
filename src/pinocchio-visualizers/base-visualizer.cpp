@@ -49,4 +49,15 @@ void BaseVisualizer::play(const std::vector<ConstVectorRef>& qs, Scalar dt) {
   }
 }
 
+void BaseVisualizer::play(const ConstMatrixRef& qs, Scalar dt) {
+  using Eigen::Index;
+  const Index nsteps = qs.rows();
+  std::vector<ConstVectorRef> qs_;
+  for (Index i = 0; i < nsteps; i++) {
+    qs_.emplace_back(qs.row(i));
+  }
+  // call overload
+  this->play(qs_, dt);
+}
+
 }  // namespace pinocchio_visualizers

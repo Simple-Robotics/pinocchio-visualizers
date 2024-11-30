@@ -15,10 +15,12 @@ typedef pin::ModelTpl<Scalar> Model;
 typedef pin::DataTpl<Scalar> Data;
 
 typedef Eigen::Matrix<Scalar, Eigen::Dynamic, 1, Options> VectorXs;
+typedef Eigen::Matrix<Scalar, Eigen::Dynamic, Eigen::Dynamic, Options> MatrixXs;
 typedef Eigen::Matrix<Scalar, 3, 1, Options> Vector3s;
 typedef Eigen::Matrix<Scalar, 4, 4, Options> Matrix4s;
 typedef pin::SE3Tpl<Scalar, Options> SE3;
 typedef Eigen::Ref<const VectorXs> ConstVectorRef;
+typedef Eigen::Ref<const MatrixXs> ConstMatrixRef;
 }  // namespace pinocchio_visualizers
 
 namespace pinviz = ::pinocchio_visualizers;  // NOLINT
@@ -55,6 +57,8 @@ class BaseVisualizer {
   /// @brief Play an entire trajectory, waiting for time @p dt between each
   /// keyframe.
   virtual void play(const std::vector<ConstVectorRef>& qs, Scalar dt);
+
+  void play(const ConstMatrixRef& qs, Scalar dt);
 
   /// @brief Override this in child class when the scene has to be redrawn.
   /// Useful for @ref play().
