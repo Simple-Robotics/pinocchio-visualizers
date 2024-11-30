@@ -2,6 +2,7 @@
 
 #include "base-visualizer.hpp"
 #include <pinocchio/algorithm/frames.hpp>
+#include <pinocchio/algorithm/geometry.hpp>
 #include <pinocchio/algorithm/model.hpp>
 
 #include <chrono>
