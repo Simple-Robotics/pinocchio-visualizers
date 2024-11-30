@@ -3,16 +3,16 @@
 #include "base-visualizer.hpp"
 #include <pinocchio/algorithm/frames.hpp>
 #include <pinocchio/algorithm/geometry.hpp>
+#include <pinocchio/algorithm/model.hpp>
 
 #include <chrono>
 #include <thread>
 
 namespace pinocchio_visualizers {
 
-template <typename Scalar>
-BaseVisualizer<Scalar>::BaseVisualizer(const Model& model,
-                                       const GeometryModel& visual_model,
-                                       const GeometryModel* collision_model)
+BaseVisualizer::BaseVisualizer(const Model& model,
+                               const GeometryModel& visual_model,
+                               const GeometryModel* collision_model)
     : m_model(&model),
       m_visualModel(&visual_model),
       m_collisionModel(collision_model),
@@ -22,15 +22,13 @@ BaseVisualizer<Scalar>::BaseVisualizer(const Model& model,
   if (m_collisionModel) collisionData = GeometryData(*m_collisionModel);
 }
 
-template <typename Scalar>
-void BaseVisualizer<Scalar>::rebuildData() {
+void BaseVisualizer::rebuildData() {
   data = Data(*m_model);
   visualData = GeometryData(*m_visualModel);
   if (m_collisionModel) collisionData = GeometryData(*m_collisionModel);
 }
 
-template <typename Scalar>
-void BaseVisualizer<Scalar>::display(const std::optional<ConstVectorRef>& q) {
+void BaseVisualizer::display(const std::optional<ConstVectorRef>& q) {
   if (q.has_value()) {
     forwardKinematics(*m_model, data, *q);
   }
@@ -38,9 +36,7 @@ void BaseVisualizer<Scalar>::display(const std::optional<ConstVectorRef>& q) {
   displayImpl();
 }
 
-template <typename Scalar>
-void BaseVisualizer<Scalar>::play(const std::vector<ConstVectorRef>& qs,
-                                  Scalar dt) {
+void BaseVisualizer::play(const std::vector<ConstVectorRef>& qs, Scalar dt) {
   const auto nsteps = qs.size();
   std::chrono::steady_clock clk;
   const auto ms = std::chrono::milliseconds(unsigned(dt * 1e3));

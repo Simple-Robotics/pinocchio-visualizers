@@ -1,21 +1,29 @@
 #pragma once
 
-#include "namespace.hpp"
-
 #include <pinocchio/multibody/data.hpp>
 #include <pinocchio/multibody/geometry.hpp>
-#include <pinocchio/multibody/model.hpp>
 
 #include <optional>
 
 namespace pinocchio_visualizers {
 namespace pin = pinocchio;
-
-namespace {
 using pin::GeometryData;
 using pin::GeometryModel;
-}  // namespace
+constexpr int Options = Eigen::ColMajor;
+typedef double Scalar;
+typedef pin::ModelTpl<Scalar> Model;
+typedef pin::DataTpl<Scalar> Data;
 
+typedef Eigen::Matrix<Scalar, Eigen::Dynamic, 1, Options> VectorXs;
+typedef Eigen::Matrix<Scalar, 3, 1, Options> Vector3s;
+typedef Eigen::Matrix<Scalar, 4, 4, Options> Matrix4s;
+typedef pin::SE3Tpl<Scalar, Options> SE3;
+typedef Eigen::Ref<const VectorXs> ConstVectorRef;
+}  // namespace pinocchio_visualizers
+
+namespace pinviz = ::pinocchio_visualizers;  // NOLINT
+
+namespace pinocchio_visualizers {
 /// @brief A base class for defining visualizers for Pinocchio in C++. This
 /// provides basic building blocks (a base constructor, data members, getters
 /// for the models).
@@ -24,19 +32,9 @@ using pin::GeometryModel;
 /// should be managed by the application context itself.
 /// @remark C++ port of the BaseVisualizer abstract class in Pinocchio's Python
 /// bindings.
-template <typename _Scalar>
 class BaseVisualizer {
  public:
-  typedef _Scalar Scalar;
-  typedef pin::ModelTpl<Scalar> Model;
-  typedef pin::DataTpl<Scalar> Data;
   enum { Options = Eigen::ColMajor };
-
-  typedef Eigen::Matrix<Scalar, Eigen::Dynamic, 1, Options> VectorXs;
-  typedef Eigen::Matrix<Scalar, 3, 1, Options> Vector3s;
-  typedef Eigen::Matrix<Scalar, 4, 4, Options> Matrix4s;
-  typedef pin::SE3Tpl<Scalar, Options> SE3;
-  typedef Eigen::Ref<const VectorXs> ConstVectorRef;
 
   BaseVisualizer(const Model& model, const pin::GeometryModel& viz_model,
                  const pin::GeometryModel* collision_model = nullptr);
@@ -105,7 +103,8 @@ class BaseVisualizer {
   GeometryData visualData;
   GeometryData collisionData;
 };
-
 }  // namespace pinocchio_visualizers
 
-#include "base-visualizer.hxx"
+#ifdef PINOCCHIO_VISUALIZERS_IMPLEMENTATION
+#include "base-visualizer.cpp"
+#endif
