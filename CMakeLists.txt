@@ -32,7 +32,6 @@ add_project_dependency(eigenpy) # not required
 
 set(
   PINVIZ_SOURCES
-  src/pinocchio-visualizers/namespace.hpp
   src/pinocchio-visualizers/base-visualizer.hpp
   src/pinocchio-visualizers/base-visualizer.cpp
 )
