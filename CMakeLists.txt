@@ -32,9 +32,9 @@ add_project_dependency(eigenpy) # not required
 
 set(
   PINVIZ_SOURCES
-  include/pinocchio-visualizers/namespace.hpp
-  include/pinocchio-visualizers/base-visualizer.hpp
-  include/pinocchio-visualizers/base-visualizer.cpp
+  src/pinocchio-visualizers/namespace.hpp
+  src/pinocchio-visualizers/base-visualizer.hpp
+  src/pinocchio-visualizers/base-visualizer.cpp
 )
 message(STATUS "Source files: ${PINVIZ_SOURCES}")
 
@@ -46,7 +46,9 @@ set_target_properties(
 target_link_libraries(${PROJECT_NAME} INTERFACE pinocchio::pinocchio)
 target_include_directories(
   ${PROJECT_NAME}
-  INTERFACE $<INSTALL_INTERFACE:include>
+  INTERFACE
+    $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>
+    $<INSTALL_INTERFACE:include>
 )
 
 install(
@@ -56,7 +58,7 @@ install(
 )
 
 if(eigenpy_FOUND)
-  set(PY_HEADERS include/pinocchio-visualizers/python/visitor.hpp)
+  set(PY_HEADERS src/pinocchio-visualizers/python/visitor.hpp)
   add_library(${PROJECT_NAME}_python INTERFACE)
   add_library(${PROJECT_NAME}::python ALIAS ${PROJECT_NAME}_python)
   set_target_properties(
