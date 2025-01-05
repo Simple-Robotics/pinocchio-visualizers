@@ -94,6 +94,7 @@ class BaseVisualizer {
   const Model& model() const { return *m_model; }
   const GeometryModel& visualModel() const { return *m_visualModel; }
   const GeometryModel* collisionModel() const { return m_collisionModel; }
+  bool hasCollisionModel() const { return m_collisionModel != nullptr; }
 
  protected:
   Model const* m_model;
