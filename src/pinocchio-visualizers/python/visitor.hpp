@@ -23,7 +23,8 @@ struct VisualizerVisitor : bp::def_visitor<VisualizerVisitor<Visualizer>> {
     vis.setCameraPose(pose);
   }
 
-  static void play_proxy2(Visualizer&vis, const ConstMatrixRef& qs, Scalar dt) {
+  static void play_proxy2(Visualizer &vis, const ConstMatrixRef &qs,
+                          Scalar dt) {
     vis.play(qs, dt);
   }
 
