@@ -2,7 +2,10 @@ cmake_minimum_required(VERSION 3.20)
 
 set(PROJECT_NAME pinocchio-visualizers)
 set(PROJECT_URL "")
-set(PROJECT_DESCRIPTION "")
+set(
+  PROJECT_DESCRIPTION
+  "A basic header for writing visualizers for Pinocchio in C++."
+)
 set(PROJECT_CUSTOM_HEADER_DIR ${PROJECT_NAME})
 set(PROJECT_CUSTOM_HEADER_EXTENSION "hpp")
 set(PROJECT_USE_CMAKE_EXPORT True)
@@ -21,6 +24,9 @@ include(${PROJECT_JRL_CMAKE_MODULE_DIR}/base.cmake)
 compute_project_args(PROJECT_ARGS LANGUAGES CXX)
 project(${PROJECT_NAME} ${PROJECT_ARGS})
 
+set(BUILD_DOCUMENTATION OFF)
+set(INSTALL_DOCUMENTATION OFF)
+
 set(CMAKE_VERBOSE_MAKEFILE False)
 
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
@@ -33,26 +39,21 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   )
 endif()
 
-add_project_dependency(pinocchio 2.7.0 REQUIRED)
-add_project_dependency(eigenpy) # not required
-
-set(
-  PINVIZ_SOURCES
-  src/pinocchio-visualizers/base-visualizer.hpp
-  src/pinocchio-visualizers/base-visualizer.cpp
-)
-message(STATUS "Source files: ${PINVIZ_SOURCES}")
+add_project_dependency(pinocchio 3.1.0 CONFIG REQUIRED)
+add_project_dependency(eigenpy CONFIG) # not required
 
 add_library(${PROJECT_NAME} INTERFACE)
 set_target_properties(
   ${PROJECT_NAME}
-  PROPERTIES LINKER_LANGUAGE CXX PUBLIC_HEADER "${PINVIZ_SOURCES}"
+  PROPERTIES
+    LINKER_LANGUAGE CXX
+    PUBLIC_HEADER pinocchio-visualizers/base-visualizer.hpp
 )
 target_link_libraries(${PROJECT_NAME} INTERFACE pinocchio::pinocchio)
 target_include_directories(
   ${PROJECT_NAME}
   INTERFACE
-    $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>
+    $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:include>
 )
 
@@ -63,12 +64,11 @@ install(
 )
 
 if(eigenpy_FOUND)
-  set(PY_HEADERS src/pinocchio-visualizers/python/visitor.hpp)
   add_library(${PROJECT_NAME}_python INTERFACE)
   add_library(${PROJECT_NAME}::python ALIAS ${PROJECT_NAME}_python)
   set_target_properties(
     ${PROJECT_NAME}_python
-    PROPERTIES PUBLIC_HEADER "${PY_HEADERS}"
+    PROPERTIES PUBLIC_HEADER pinocchio-visualizers/python/visitor.hpp
   )
   target_link_libraries(${PROJECT_NAME}_python INTERFACE eigenpy::eigenpy)
 
