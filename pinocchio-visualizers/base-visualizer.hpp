@@ -36,8 +36,6 @@ namespace pinocchio_visualizers {
 /// bindings.
 class BaseVisualizer {
  public:
-  enum { Options = Eigen::ColMajor };
-
   BaseVisualizer(const Model& model, const pin::GeometryModel& viz_model,
                  const pin::GeometryModel* collision_model = nullptr);
 
@@ -101,6 +99,7 @@ class BaseVisualizer {
   GeometryModel const* m_visualModel;
   GeometryModel const* m_collisionModel;
 
+  virtual void displayPrecall() {}
   virtual void displayImpl() = 0;
 
  public:
@@ -139,6 +138,7 @@ void BaseVisualizer::rebuildData() {
 }
 
 void BaseVisualizer::display(const std::optional<ConstVectorRef>& q) {
+  displayPrecall();
   if (q.has_value()) {
     forwardKinematics(*m_model, data, *q);
   }
