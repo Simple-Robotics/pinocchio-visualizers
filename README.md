@@ -1,3 +1,16 @@
+
+-----
+
+<p align="center" style="font-weight: bold">
+
+  ## ARCHIVED
+
+  This repository has been archived. Development continues as part of [Pinocchio itself](https://github.com/stack-of-tasks/pinocchio"), see the Pinocchio issue https://github.com/stack-of-tasks/pinocchio/issues/2573.
+
+</p>
+
+-----
+
 # pinocchio-visualizers
 
 This package aims to provide basic functionality and common interfaces for visualizers (in C++/Python) for the [Pinocchio](https://github.com/stack-of-tasks/pinocchio) rigid-body dynamics library.
